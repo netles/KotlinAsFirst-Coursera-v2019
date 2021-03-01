@@ -116,7 +116,13 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = initial.toDouble()*percent.toDouble()/100 + initial.toDouble()
+fun accountInThreeYears(initial: Int, percent: Int): Double {
+    val a = initial.toDouble()
+    val b = percent.toDouble()/100
+
+    return (a+a*b) + (a+a*b)*b + ((a+a*b) + (a+a*b)*b)*b
+    // наверное это банальное сложение результатов 1,2,3 года, и в реальном коде стоит перевести в сокращённый вид или воспользоваться ф-цией
+}
 
 /**
  * Простая
@@ -124,4 +130,5 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = initial.toDouble()
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int = TODO()
+fun numberRevert(number: Int): Int = number/100 + (number/10*10 - number/100*100) + (number%10)*100
+// фишка в том, что при делении целого на целое получается всегда целое, поэтому деление и затем умножение на кратно 10 съест остаток
